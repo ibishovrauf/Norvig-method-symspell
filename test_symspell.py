@@ -25,7 +25,7 @@ def test_symspell(trie : bool = False):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Norvig's Spell Checker")
+    parser = argparse.ArgumentParser(description="SymSpell Checker")
 
     parser.add_argument("word", type=str, help="Input word to be corrected")
     parser.add_argument("--trie", type=bool, help="To use Trie or HashMap", default=False)

@@ -46,7 +46,7 @@ class SymSpell:
         for word in dictionary:
             deletions = self.generate_deletions(word, 3)
             for deletion in deletions:
-                self.method[deletion].append(word)
+                self.method[deletion] = word
 
     def check(self, word):
         """
@@ -65,11 +65,16 @@ class SymSpell:
             try:
                 corrected_words.extend(self.method[deletion])
             except KeyError:
-                return word  # Return the original word if deletion not found
+                pass
+        if not corrected_words:
+            return word
         result = {}
         for corrected_word in set(corrected_words):
             result[corrected_word] = 1 / (self.optimized_edit_distance(word, corrected_word) + 1)
-        return result
+        sorted_dict = sorted(result.items(), key=lambda x: x[1], reverse=True)
+
+        max_key = sorted_dict[0][0]
+        return max_key
 
     def optimized_edit_distance(self, word1: str, word2: str):
         """

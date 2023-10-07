@@ -24,3 +24,9 @@ class HashMap(dict):
         else:
             super().__setitem__(key, [])  # Initialize the key with an empty list
             return super().__getitem__(key)
+
+    def __setitem__(self, __key, __value):
+        __get_value = self.__getitem__(__key)
+        __get_value.append(__value)
+        __get_value = list(set(__get_value))
+        return super().__setitem__(__key, __get_value)
