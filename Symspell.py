@@ -4,20 +4,6 @@ from spell_check_utils.SymSpell import SymSpell
 import argparse
 
 
-def train_symspell(trie : bool = False):
-    with open("data/corpus.json", 'r', encoding="utf-8") as file:
-        corpus = json.load(file)
-    spell_checker = SymSpell(trie=trie)
-
-    spell_checker.insert_deletions_of_all_words(corpus[:30])
-    if trie:
-        with open("data/symspell/trie.pickle", 'wb') as file:
-            pickle.dump(spell_checker.method, file)
-    else:
-        with open("data/symspell/hashmap.json", 'w') as file:
-            json.dump(spell_checker.method, file)
-
-
 def load_trie():
     with open("data/symspell/trie.pickle", 'rb') as file:
         trie = pickle.load(file)
