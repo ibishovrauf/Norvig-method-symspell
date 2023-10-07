@@ -2,7 +2,7 @@ class Node:
     def __init__(self, value: str, parent = None) -> None:
         self.parent = parent
         self.value = value
-        self.words = ["sa"]
+        self.words = []
         self.child_nodes = dict()
 
     def set_parrent(self, parent_node):
