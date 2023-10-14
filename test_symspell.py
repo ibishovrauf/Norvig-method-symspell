@@ -23,6 +23,15 @@ def test_symspell(trie : bool = False):
         with open("data/symspell/hashmap.json", 'w') as file:
             json.dumps(spell_checker.method, file)
 
+def correct_spelling(word, trie):
+    if trie:
+        method = load_trie()
+    else:
+        method = load_hashmap()
+
+    spell_checker = SymSpell(trie=trie)
+    spell_checker.method = method
+    return spell_checker.check(word)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="SymSpell Checker")
@@ -31,11 +40,4 @@ if __name__ == "__main__":
     parser.add_argument("--trie", type=bool, help="To use Trie or HashMap", default=False)
 
     args = parser.parse_args()
-    if args.trie:
-        method = load_trie()
-    else:
-        method = load_hashmap()
-
-    spell_checker = SymSpell(trie=args.trie)
-    spell_checker.method = method
-    print(spell_checker.check(args.word))
+    print(correct_spelling(args.word, args.trie))
